@@ -18,14 +18,14 @@ public class FantasportDbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
         Log.i("FTS", "Création des tables");
-
-
+        db.execSQL(FantasportContract.Match.SQL_CREATE_ENTRIES);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i("FTS", "Upgrade des tables");
+        db.execSQL(FantasportContract.Match.SQL_DROP_TABLE);
     }
 }

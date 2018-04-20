@@ -15,23 +15,31 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.efrei.fantasport.R;
+import com.android.efrei.fantasport.bd.MatchDAO;
+import com.android.efrei.fantasport.bd.SQLiteConnexion;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final int REQUEST_TAKE_PHOTO = 1;
     private static final String TAG = "MainActivity";
+    private final MatchDAO matchDAO = new MatchDAO();
     String mCurrentPhotoPath;
+    private TextView msgTest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "...onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -45,10 +53,31 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        msgTest = (TextView) findViewById(R.id.msgtest);
+
+        matchDAO.setDb(SQLiteConnexion.getInstance().ouvrir(MainActivity.this));
+
+        SQLiteConnexion.getInstance().fermer();
+
+
     }
 
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG, "...onResume");
+        super.onResume();
+
+        if(baseEstVide()){
+            msgTest.setText("Hey la base est vide !");
+        }
+
+
+    }
     @Override
     public void onBackPressed() {
+        Log.i(TAG, "...onBackPressed");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -59,6 +88,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i(TAG, "...onCreateOptionsMenu");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -66,6 +96,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i(TAG, "...onOptionsItemSelected");
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -152,4 +184,21 @@ public class MainActivity extends AppCompatActivity
         this.sendBroadcast(mediaScanIntent);
     }
 
+
+    /**
+     * Permet de dire s'il y a des items en base de données
+     *
+     * @return true si vide false sinon
+     */
+    private boolean baseEstVide() {
+        matchDAO.setDb(SQLiteConnexion.getInstance().ouvrir(this));
+        int nb = matchDAO.nbLignes();
+        SQLiteConnexion.getInstance().fermer();
+
+        return nb == 0;
+    }
+
+    public void lancerCamera(View view) {
+        dispatchTakePictureIntent();
+    }
 }

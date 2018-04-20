@@ -32,7 +32,7 @@ class FantasportContract {
                         Match.COLUMN_SCORE1 + " TEXT, " +
                         Match.COLUMN_SCORE2 + " TEXT, " +
                         Match.COLUMN_DUREE + " TEXT, " +
-                        Match.COLUMN_LIEU + " TEXT, ";
+                        Match.COLUMN_LIEU + " TEXT) ";
 
 
         static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + Match.TABLE_NAME;
