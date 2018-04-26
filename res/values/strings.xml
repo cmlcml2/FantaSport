@@ -13,4 +13,5 @@
     <string name="a_propos">A propos</string>
     <string name="fantasport">FantaSport</string>
     <string name="email">contact@fantasport.com</string>
+    <string name="title_activity_localisation">Map</string>
 </resources>

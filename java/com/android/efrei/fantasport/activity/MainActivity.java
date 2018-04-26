@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.android.efrei.fantasport.R;
 import com.android.efrei.fantasport.bd.MatchDAO;
 import com.android.efrei.fantasport.bd.SQLiteConnexion;
+import com.android.efrei.fantasport.model.Match;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private static final String TAG = "MainActivity";
     private final MatchDAO matchDAO = new MatchDAO();
     String mCurrentPhotoPath;
@@ -57,8 +60,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         msgTest = (TextView) findViewById(R.id.msgtest);
 
         matchDAO.setDb(SQLiteConnexion.getInstance().ouvrir(MainActivity.this));
-
+        Match premierMatch = new Match("j1","j2","s1","s2","duree","lieu");
+        matchDAO.ajouter(premierMatch);
         SQLiteConnexion.getInstance().fermer();
+
 
 
     }
@@ -71,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(baseEstVide()){
             msgTest.setText("Hey la base est vide !");
+        }else {
+            matchDAO.setDb(SQLiteConnexion.getInstance().ouvrir(MainActivity.this));
+            msgTest.setText("Hey la base est pas vide !" + matchDAO.recupererParId(1).getJoueur1());
+            SQLiteConnexion.getInstance().fermer();
+
+
         }
 
 
@@ -122,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_map) {
+            startActivity(new Intent(MainActivity.this, MapActivity.class));
 
         } else if (id == R.id.nav_stats) {
 
@@ -171,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                galleryAddPic();
             }
         }
     }
@@ -200,5 +211,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void lancerCamera(View view) {
         dispatchTakePictureIntent();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            //Bundle extras = data.getExtras();
+            //Bitmap imageBitmap = (Bitmap) extras.get("data");
+            //mImageView.setImageBitmap(imageBitmap);
+            galleryAddPic();
+        }
     }
 }

@@ -1,7 +1,9 @@
 package com.android.efrei.fantasport.bd;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.efrei.fantasport.model.Match;
@@ -114,6 +116,22 @@ public class MatchDAO {
         return res;
     }
 
+
+    /**
+     * Ajoute une ligne dans la table Match
+     *
+     * @param match le Match à ajouter
+     * @return l'id SQL de la ligne nouvellement ajoutée
+     */
+    public long ajouter(Match match) {
+        final ContentValues values = genererContentValues(match);
+
+        final long rowId = db.insert(FantasportContract.Match.TABLE_NAME, null, values);
+        Log.i("FTS", "rowId du nouvel élément " + rowId);
+
+        return rowId;
+    }
+
     /**
      * Remise à zéro de la table Parc
      */
@@ -157,5 +175,23 @@ public class MatchDAO {
         cursor.close();
 
         return res;
+    }
+
+    /**
+     * Constitue un ContentValues à partir d'un objet Match
+     *
+     * @param match
+     * @return ContentValues
+     */
+    @NonNull
+    private ContentValues genererContentValues(Match match) {
+        final ContentValues values = new ContentValues();
+        values.put(COLUMN_JOUEUR1, match.getJoueur1());
+        values.put(COLUMN_JOUEUR2, match.getJoueur2());
+        values.put(COLUMN_SCORE1, match.getScore1());
+        values.put(COLUMN_SCORE2, match.getScore1());
+        values.put(COLUMN_DUREE, match.getDuree());
+        values.put(COLUMN_LIEU, match.getLieu());
+        return values;
     }
 }
