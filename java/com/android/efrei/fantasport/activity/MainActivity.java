@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.android.efrei.fantasport.R;
 import com.android.efrei.fantasport.bd.MatchDAO;
 import com.android.efrei.fantasport.bd.SQLiteConnexion;
-import com.android.efrei.fantasport.model.Match;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,8 +63,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         msgTest = (TextView) findViewById(R.id.msgtest);
 
         matchDAO.setDb(SQLiteConnexion.getInstance().ouvrir(MainActivity.this));
-        Match premierMatch = new Match("j1","j2","s1","s2","duree","lieu");
+        /*Match premierMatch = new Match("Joe","Marie","2","7","124","Toulouse");
+        Match premierMatch2 = new Match("Jean","Marc","6","3","60","Villejuif");
+        Match premierMatch3 = new Match("Louis","Pierre","4","6","12","Paris");
+        Match premierMatch4 = new Match("Jack","Ouille","9","1","16","Rome");
+        Match premierMatch6 = new Match("John","Wayne","6","2","115","Londre");
+        Match premierMatch7 = new Match("Boum","Bam","5","1","115","Gap");
         matchDAO.ajouter(premierMatch);
+        matchDAO.ajouter(premierMatch2);
+        matchDAO.ajouter(premierMatch3);
+        matchDAO.ajouter(premierMatch4);
+        matchDAO.ajouter(premierMatch6);
+        matchDAO.ajouter(premierMatch7);
+        matchDAO.ajouter(premierMatch2);*/
         SQLiteConnexion.getInstance().fermer();
 
 
@@ -139,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_map) {
-            startActivity(new Intent(MainActivity.this, MapActivity.class));
+            startActivity(new Intent(MainActivity.this, MapsActivity.class));
 
         } else if (id == R.id.nav_stats) {
             startActivity(new Intent(MainActivity.this, ListeMatchActivity.class));

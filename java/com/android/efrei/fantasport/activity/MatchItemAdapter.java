@@ -71,6 +71,10 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
             id.setText(match.getId() == null ? "" : match.getId().toString());
             joueur1.setText(match.getJoueur1());
             joueur2.setText(match.getJoueur2());
+            score1.setText(match.getScore1());
+            score2.setText(match.getScore2());
+            duree.setText(match.getDuree());
+            lieu.setText(match.getLieu());
 
             containerView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +96,7 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
     @Override
     public String getSectionTitle(int position) {
         //this String will be shown in a bubble for specified position
-        return matchs.get(position).getJoueur1().substring(0, 1);
+        return matchs.get(position).getLieu().substring(0, 1);
     }
 
     /**

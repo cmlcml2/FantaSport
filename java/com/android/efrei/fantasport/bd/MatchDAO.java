@@ -37,7 +37,7 @@ public class MatchDAO {
                     " WHERE " + _ID + "= ?";
     private static final String REQ_CHERCHER_TOUS =
             "SELECT " + ALL_FIELDS +
-                    " FROM " + TABLE_NAME ;
+                    " FROM " + TABLE_NAME + " ORDER BY " + COLUMN_LIEU;
     private static final String REQ_SUPPRIMER =
             "DELETE FROM " + TABLE_NAME;
     private static final String REQ_NB_LIGNES =

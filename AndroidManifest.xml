@@ -49,9 +49,6 @@
         <activity
             android:name=".activity.ListeMatchActivity"
             android:parentActivityName=".activity.MainActivity" />
-        <activity
-            android:name=".activity.MapActivity"
-            android:parentActivityName=".activity.MainActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -67,6 +64,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDcxcE3mq7-ZXN1sUdTd8kR71vXd2DxIxw" />
 
+        <activity
+            android:name=".activity.MapsActivity"
+            android:label="@string/title_activity_maps">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.efrei.fantasport.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
