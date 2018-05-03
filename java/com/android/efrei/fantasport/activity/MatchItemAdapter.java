@@ -3,6 +3,7 @@ package com.android.efrei.fantasport.activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,14 @@ import java.util.List;
 
 class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder> implements SectionTitleProvider {
 
+    private static final String TAG = "MatchItemAdapter" ;
     private List<Match> matchs = new ArrayList<>();
 
     private Listener listener;
 
     private Context context;
 
-    MatchItemAdapter(List<Match> items, Context context) {
+    MatchItemAdapter(List<Match> matchs, Context context) {
         this.matchs = matchs;
         this.context = context;
     }
@@ -52,6 +54,7 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(MatchItemAdapter.ViewHolder holder, final int position) {
+        Log.i(TAG,"onBindViewHolder");
         final LinearLayout containerView = holder.containerView;
 
         final Match match = matchs.get(position);
@@ -90,7 +93,7 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
     /**
      * Remplacement des données à afficher (plus optimisée que recréer un Adapter ou une liste à chaque fois)
      *
-     * @param items la liste de ParcItem
+     * @param matchs la liste de Matchs
      */
     void swap(@NonNull List<Match> matchs) {
         if (!matchs.isEmpty()) {
