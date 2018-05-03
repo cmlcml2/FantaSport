@@ -62,6 +62,11 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
             final TextView id = (TextView) containerView.findViewById(R.id.id_hidden);
             final TextView joueur1 = (TextView) containerView.findViewById(R.id.joueur1);
             final TextView joueur2 = (TextView) containerView.findViewById(R.id.joueur2);
+            final TextView score1 = (TextView) containerView.findViewById(R.id.score1);
+            final TextView score2 = (TextView) containerView.findViewById(R.id.score2);
+            final TextView duree = (TextView) containerView.findViewById(R.id.duree);
+            final TextView lieu = (TextView) containerView.findViewById(R.id.lieu);
+
 
             id.setText(match.getId() == null ? "" : match.getId().toString());
             joueur1.setText(match.getJoueur1());
