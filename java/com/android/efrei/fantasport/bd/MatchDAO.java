@@ -45,22 +45,22 @@ public class MatchDAO {
     private SQLiteDatabase db = null;
 
     /**
-     * Méthode de transformation cursor en objet ParcItem
+     * Méthode de transformation cursor en objet MatchItem
      *
      * @param c le cursor SQL
      * @return Match renseigné à partir des informations du Cursor
      */
-    private static Match cursorVersParcItem(Cursor c) {
+    private static Match cursorVersMatchItem(Cursor c) {
 
         return new Match(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getString(4),
                 c.getString(5), c.getString(6));
     }
 
     /**
-     * Récupère en base un ParcItem par son id
+     * Récupère en base un MatchItem par son id
      *
      * @param id identifiant technique
-     * @return ParcItem
+     * @return MatchItem
      */
     public Match recupererParId(long id) {
         return recupererMatch(REQ_CHERCHER_PAR_ID, new String[]{String.valueOf(id)});
@@ -72,7 +72,7 @@ public class MatchDAO {
      *
      * @param req  la requête SQL (dont la clause SELECT doit demander l'ensemble des champs de la table)
      * @param args les arguments éventuels (null si aucun paramètre)
-     * @return ParcItem
+     * @return MatchItem
      */
     private Match recupererMatch(String req, String[] args) {
         Match res = null;
@@ -83,7 +83,7 @@ public class MatchDAO {
             afficherArgs(args);
         } else {
             cursor.moveToFirst();
-            res = cursorVersParcItem(cursor);
+            res = cursorVersMatchItem(cursor);
         }
 
         cursor.close();
@@ -95,7 +95,7 @@ public class MatchDAO {
      *
      * @param req  requête SQL (la clause SELECT doit demander l'ensemble des champs de la table)
      * @param args arguments éventuels sous forme de tableau de String (null si aucun paramètre)
-     * @return List<ParcItem>
+     * @return List<MatchItem>
      */
     private List<Match> recupererListeMatch(String req, String[] args) {
         final Cursor cursor = db.rawQuery(req, args);
@@ -109,7 +109,7 @@ public class MatchDAO {
             cursor.moveToFirst();
 
             do {
-                res.add(cursorVersParcItem(cursor));
+                res.add(cursorVersMatchItem(cursor));
             }
             while (cursor.moveToNext());
         }
@@ -138,14 +138,14 @@ public class MatchDAO {
     /**
      * Récupère l'ensemble de la table
      *
-     * @return List<ParcItem>
+     * @return List<MatchItem>
      */
     public List<Match> recupererTous() {
         return recupererListeMatch(REQ_CHERCHER_TOUS, null);
     }
 
     /**
-     * Remise à zéro de la table Parc
+     * Remise à zéro de la table Match
      */
     public void raz() {
         db.execSQL(REQ_SUPPRIMER);

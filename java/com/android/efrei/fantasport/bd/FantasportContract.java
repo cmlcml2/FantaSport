@@ -11,7 +11,7 @@ class FantasportContract {
     }
 
     /**
-     * Table Parc
+     * Table Match
      */
     static class Match implements BaseColumns {
         static final String TABLE_NAME = "match";

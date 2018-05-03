@@ -22,7 +22,7 @@ public class ListeMatchActivity extends AppCompatActivity {
     private final MatchDAO matchDAO = new MatchDAO();
     private RecyclerView listView;
     private MatchItemAdapter adapter;
-    // la liste de ParcItem à afficher
+    // la liste de Matchs à afficher
     private List<Match> matchs = new ArrayList<>();
 
     @Override
@@ -52,10 +52,6 @@ public class ListeMatchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         fastScroller.setRecyclerView(recyclerView);
-
-
-
-
     }
 
     protected void onResume() {
