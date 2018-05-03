@@ -57,12 +57,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+
+
         msgTest = (TextView) findViewById(R.id.msgtest);
 
         matchDAO.setDb(SQLiteConnexion.getInstance().ouvrir(MainActivity.this));
         Match premierMatch = new Match("j1","j2","s1","s2","duree","lieu");
         matchDAO.ajouter(premierMatch);
         SQLiteConnexion.getInstance().fermer();
+
+
 
 
 
@@ -136,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, MapActivity.class));
 
         } else if (id == R.id.nav_stats) {
+            startActivity(new Intent(MainActivity.this, ListeMatchActivity.class));
+
 
         } else if (id == R.id.nav_contact) {
 

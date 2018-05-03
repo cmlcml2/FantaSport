@@ -1,10 +1,13 @@
 package com.android.efrei.fantasport.activity;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.efrei.fantasport.R;
 import com.android.efrei.fantasport.model.Match;
@@ -48,22 +51,55 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
 
 
     @Override
-    public void onBindViewHolder(MatchItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MatchItemAdapter.ViewHolder holder, final int position) {
         final LinearLayout containerView = holder.containerView;
 
         final Match match = matchs.get(position);
+        if (matchs != null) {
+            final TextView id = (TextView) containerView.findViewById(R.id.id_hidden);
+            final TextView joueur1 = (TextView) containerView.findViewById(R.id.joueur1);
+            final TextView joueur2 = (TextView) containerView.findViewById(R.id.joueur2);
 
+            id.setText(match.getId() == null ? "" : match.getId().toString());
+            joueur1.setText(match.getJoueur1());
+            joueur2.setText(match.getJoueur2());
+
+            containerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onClick(position);
+                    }
+                }
+            });
+
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return matchs.size();
     }
 
     @Override
     public String getSectionTitle(int position) {
         //this String will be shown in a bubble for specified position
         return matchs.get(position).getJoueur1().substring(0, 1);
+    }
+
+    /**
+     * Remplacement des données à afficher (plus optimisée que recréer un Adapter ou une liste à chaque fois)
+     *
+     * @param items la liste de ParcItem
+     */
+    void swap(@NonNull List<Match> matchs) {
+        if (!matchs.isEmpty()) {
+            this.matchs.clear();
+            this.matchs.addAll(matchs);
+        } else {
+            this.matchs = matchs;
+        }
+        notifyDataSetChanged();
     }
 
     /**

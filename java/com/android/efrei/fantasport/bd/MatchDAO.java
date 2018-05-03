@@ -35,6 +35,9 @@ public class MatchDAO {
             "SELECT " + ALL_FIELDS +
                     " FROM " + TABLE_NAME +
                     " WHERE " + _ID + "= ?";
+    private static final String REQ_CHERCHER_TOUS =
+            "SELECT " + ALL_FIELDS +
+                    " FROM " + TABLE_NAME ;
     private static final String REQ_SUPPRIMER =
             "DELETE FROM " + TABLE_NAME;
     private static final String REQ_NB_LIGNES =
@@ -130,6 +133,15 @@ public class MatchDAO {
         Log.i("FTS", "rowId du nouvel élément " + rowId);
 
         return rowId;
+    }
+
+    /**
+     * Récupère l'ensemble de la table
+     *
+     * @return List<ParcItem>
+     */
+    public List<Match> recupererTous() {
+        return recupererListeMatch(REQ_CHERCHER_TOUS, null);
     }
 
     /**
