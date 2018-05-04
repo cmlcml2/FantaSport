@@ -21,7 +21,7 @@ import java.util.List;
 
 class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder> implements SectionTitleProvider {
 
-    private static final String TAG = "MatchItemAdapter" ;
+    private static final String TAG = "MatchItemAdapter";
     private List<Match> matchs = new ArrayList<>();
 
     private Listener listener;
@@ -46,10 +46,10 @@ class MatchItemAdapter extends RecyclerView.Adapter<MatchItemAdapter.ViewHolder>
         LinearLayout layout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.match_item, parent, false);
         return new ViewHolder(layout);
     }
-
+/*
     void setListener(Listener listener) {
         this.listener = listener;
-    }
+    }*/
 
 
     @Override
