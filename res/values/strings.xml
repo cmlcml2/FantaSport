@@ -16,4 +16,5 @@
     <string name="title_activity_localisation">Map</string>
     <string name="separator">" - "</string>
     <string name="title_activity_maps">Map</string>
+    <string name="bienvenue_txt">"Bienvenue sur FantaSport, que le sport commence !\n\nCette application permet de consulter les résultats des matchs."</string>
 </resources>

@@ -78,10 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         matchDAO.ajouter(premierMatch2);*/
         SQLiteConnexion.getInstance().fermer();
 
-
-
-
-
     }
 
 
